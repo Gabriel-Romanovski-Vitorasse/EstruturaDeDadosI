@@ -42,7 +42,7 @@ void selectionsort(int *vetor){
 }
 
 
-void bubblesort(int *vetor){
+/*void bubblesort(int *vetor){
     int aux;
     for (int j = 0; j < TAMANHO - 1; j++) {
         for (int i = 0; i < TAMANHO - 1 - j; i++) {
@@ -53,21 +53,36 @@ void bubblesort(int *vetor){
             }
         }
     }
+}*/
+
+void bubblesort(int *vetor){
+    int aux, loop = 1;
+    while(loop){
+        loop = 0;
+       for (int i = 0; i < TAMANHO - 1; i++) {
+            if (vetor[i] > vetor[i + 1]) {
+                aux = vetor[i];
+                vetor[i] = vetor[i + 1];
+                vetor[i + 1] = aux;
+                loop = 1;
+            }
+        }
+    }
 }
 
 int main(void) {
     int codigo[TAMANHO] = {33,77,1,2,89,6,13,55};
 
             //maior(codigo);
-            menor(codigo);
+            //menor(codigo);
             printf("Antes:\n");
             printf("|");
             for(int i = 0; i < TAMANHO; i++){
                 printf(" %i |", codigo[i]);
             }
 
-            //bubblesort(codigo);
-            selectionsort(codigo);
+            bubblesort(codigo);
+            //selectionsort(codigo);
 
             printf("\n\n");
             printf("Depois:\n");
