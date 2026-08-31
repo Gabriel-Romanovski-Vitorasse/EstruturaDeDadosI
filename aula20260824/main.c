@@ -24,6 +24,17 @@ void menor(int *vetor){
     printf("%i\n\n", menor);
 }
 
+void insertionsort(int *vetor){
+    int i, j, aux;
+    for(i=1;i<TAMANHO;i++){
+        aux = vetor[i];
+        for(j=i;(j>0) && (aux<vetor[j-1]);j-- ){
+            vetor[j]=vetor[j-1];
+        }
+        vetor[j] = aux;
+    }
+}
+
 void selectionsort(int *vetor){
     int menor, troca, j, i;
     for(j=0; j < TAMANHO-1; j++){//analisa todos os indices
@@ -81,8 +92,9 @@ int main(void) {
                 printf(" %i |", codigo[i]);
             }
 
-            bubblesort(codigo);
+            //bubblesort(codigo);
             //selectionsort(codigo);
+            insertionsort(codigo);
 
             printf("\n\n");
             printf("Depois:\n");
