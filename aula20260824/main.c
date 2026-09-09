@@ -24,6 +24,16 @@ void menor(int *vetor){
     printf("%i\n\n", menor);
 }
 
+void mergeSort(int *V, int inicio, int fim){
+    int meio;
+    if(inicio < fim){
+        meio = floor((inicio+fim)/2);
+        mergeSort(V, inicio, meio);
+        mergeSort(V, meio+1, fim);
+        mergeSort(V, inicio, meio, fim);
+    }
+}
+
 void insertionsort(int *vetor){
     int i, j, aux;
     for(i=1;i<TAMANHO;i++){
