@@ -24,6 +24,34 @@ void menor(int *vetor){
     printf("%i\n\n", menor);
 }
 
+int particiona(int *v, int inicio, int fim){
+    int pivo posPivo, esq = inicio, dir = fim, aux, tam;
+    tam = fim - inicio + 1;
+    if(inicio < fim){
+        pivo = v[fim];
+        for(int i = 0; i < tam;i++){
+            if(v[i] <= pivo){
+                esq = v[i];
+            }
+        }
+        for(int j = tam; j >= 0;j--){
+            if(v[j] <= pivo){
+                dir = v[j];
+            }
+        }
+    }
+    return posPivo;
+}
+
+void quickSort(int *v, int inicio, int fim){
+    int pivo;
+    if(fim > inicio){
+        pivo = particiona(v, inicio, fim);
+        quickSort(v,inicio, pivo-1);
+        quickSort(v, pivo+1, fim);
+    }
+}
+
 void merge(int *v, int inicio, int meio, int fim){
     int *temp, i, j, k, tam, p1, p2, fim1 = 0, fim2 = 0;
     tam = fim - inicio + 1;
@@ -131,7 +159,7 @@ int main(void) {
             //bubblesort(codigo);
             //selectionsort(codigo);
             //insertionsort(codigo);
-            mergeSort(codigo, 0, 7);
+            mergeSort(codigo, 0, TAM-1);
 
             printf("\n\n");
             printf("Depois:\n");
