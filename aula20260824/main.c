@@ -25,22 +25,27 @@ void menor(int *vetor){
 }
 
 int particiona(int *v, int inicio, int fim){
-    int pivo posPivo, esq = inicio, dir = fim, aux, tam;
-    tam = fim - inicio + 1;
-    if(inicio < fim){
-        pivo = v[fim];
-        for(int i = 0; i < tam;i++){
-            if(v[i] <= pivo){
-                esq = v[i];
-            }
-        }
-        for(int j = tam; j >= 0;j--){
-            if(v[j] <= pivo){
-                dir = v[j];
-            }
-        }
+    int esq, dir, pivo;
+    esq = inicio;
+    dir = fim;
+    pivo = v[inicio];
+
+    while(esq<dir){
+       while(v[esq] <= pivo && esq <= fim){
+            esq++;
+       }
+       while(v[dir] > pivo && dir >= 0){
+            dir--;
+       }
+       if(esq<dir){
+        int aux = v[esq];
+        v[esq] = v[dir];
+        v[dir] = aux;
+       }
     }
-    return posPivo;
+    v[inicio] = v[dir];
+    v[dir] = pivo;
+    return dir;
 }
 
 void quickSort(int *v, int inicio, int fim){
@@ -159,7 +164,8 @@ int main(void) {
             //bubblesort(codigo);
             //selectionsort(codigo);
             //insertionsort(codigo);
-            mergeSort(codigo, 0, TAM-1);
+            //mergeSort(codigo, 0, TAMANHO-1);
+            quickSort(codigo, 0, TAMANHO-1);
 
             printf("\n\n");
             printf("Depois:\n");
