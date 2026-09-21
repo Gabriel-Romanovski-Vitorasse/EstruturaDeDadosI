@@ -36,6 +36,70 @@ int insere_lista_fim(Lista *lista, int x){
     return 1;
 }
 
+void imprimir_lista(Lista *lista){
+    if(lista==NULL) {
+        printf("A lista nao existe");
+        return;
+    }
+    if(*lista==NULL) {
+        printf("A lista esta vazia.");
+        return;
+    }
+
+    cel *aux = *lista;
+    printf("Lista: |");
+    while(aux!=NULL){
+        printf(" %d |", aux->conteudo);
+        aux = aux->seg;
+    }
+    printf("\n");
+}
+int remove_lista_fim(Lista *lista){
+    if(lista==NULL) {
+        printf("A lista nao existe");
+        return 0;
+    }
+    if(*lista==NULL) {
+        printf("A lista esta vazia.");
+        return 0;
+    }
+    cel *ant = NULL, *aux = *lista;
+    while(aux->seg != NULL){
+        ant = aux;
+        aux = aux->seg;
+    }
+    if(ant == NULL){
+        *lista = NULL;
+        free(aux);
+    }else{
+        ant->seg = NULL;
+        free(aux);
+    }
+
+    return 1;
+}
+
+void esvaziar_lista(Lista *lista){
+    if(lista == NULL) {
+        printf("A lista nao existe.");
+        return;
+    }
+    cel *aux;
+    while(*lista != NULL){
+        aux = *lista;
+        *lista = (*lista)->seg;
+        free(aux);
+    }
+}
+void deletar_lista(Lista *lista){
+    if(lista == NULL){
+        printf("A lista nao existe.");
+        return;
+    } 
+    esvaziar_lista(lista);
+    free(lista);
+}
+
 int main()
 {
     printf("Inicio Lista!\n");
@@ -45,10 +109,16 @@ int main()
     insere_lista_fim(list, 20);
     insere_lista_fim(list, 30);
     insere_lista_fim(list, 40);
-
-    //IMPRIMIR LISTA
-    //INSERIR INICIO DA LISTA
-    //INSERIR ORDENADO
+    imprimir_lista(list);
+    deletar_lista(list);
+    /*remove_lista_fim(list);
+    imprimir_lista(list);
+    remove_lista_fim(list);
+    imprimir_lista(list);
+    remove_lista_fim(list);
+    imprimir_lista(list);
+    remove_lista_fim(list);
+    imprimir_lista(list);*/
 
     return 0;
 }
