@@ -18,8 +18,8 @@ Pilha* cria_Pilha(){
 
 int peek(Pilha *p){
     if (p == NULL || *p == NULL) {
-        printf("ERRO: a pilha est· vazia ou n„o existe.\n");
-        return -1; // Retorna um cÛdigo de erro genÈrico
+        printf("ERRO: a pilha est√° vazia ou n√£o existe.\n");
+        return -1; // Retorna um c√≥digo de erro gen√©rico
     }
      cel *aux = *p;
 
@@ -28,19 +28,27 @@ int peek(Pilha *p){
 
 void push(Pilha *p, int conteudo){
     if (p == NULL) {
-        printf("A Pilha n„o existe.\n");
-        return; // Interrompe a execuÁ„o caso p seja nulo
+        printf("A Pilha n√£o existe.\n");
+        return; // Interrompe a execu√ß√£o caso p seja nulo
     }
     cel *aux = (cel*) malloc (sizeof(cel));
     if (aux == NULL) return;
 
     aux->valor = conteudo;
-    aux->topo = *p; // O atual da nova cÈlula passa a ser o antigo topo
-    *p = aux; // O topo da pilha passa a ser a nova cÈlula
+    aux->topo = *p; // O atual da nova c√©lula passa a ser o antigo topo
+    *p = aux; // O topo da pilha passa a ser a nova c√©lula
 
 }
-void pop (Pilha *p){
-
+int pop(Pilha *p){
+    if (p == NULL || *p == NULL) {
+        printf("ERRO: a pilha esta vazia ou nao existe.\n");
+        return -1;
+    }
+    cel *aux = *p;          // guarda o topo atual
+    int valor = aux->valor; // guarda o valor antes de liberar
+    *p = aux->topo;         // o topo passa a ser o elemento de baixo
+    free(aux);              // libera a c√©lula removida
+    return valor;
 }
 
 int main()
