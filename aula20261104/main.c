@@ -17,13 +17,13 @@ ArvBin* criaArvBin(){
 }
 
 int inserir_ArvBin(ArvBin *raiz, int valor){
-    if(raiz == NULL){//caso não exista a arvore
+    if(raiz == NULL){//caso nÃ£o exista a arvore
         return 0;
     }
 
     No *novo;
     novo = (No*) malloc (sizeof(No));
-    if(novo == NULL){//caso não exista o novo
+    if(novo == NULL){//caso nÃ£o exista o novo
         return 0;
     }
     novo->info = valor;
@@ -37,7 +37,7 @@ int inserir_ArvBin(ArvBin *raiz, int valor){
 
         while(atual != NULL){
             ant = atual;
-            if(valor == atual->info){//caso seja repetido, não será válido.
+            if(valor == atual->info){//caso seja repetido, nÃ£o serÃ¡ vÃ¡lido.
                 free(novo);
                 return 0;
             }
@@ -69,6 +69,67 @@ void preOrdem_ArvBin(ArvBin *raiz){
     }
 }
 
+void emOrdem_arvBin(ArvBin *raiz){
+  if(raiz==NULL){
+      return;
+  }
+  if(*raiz!=NULL){
+    emOrdem_arvBin(&((*raiz)->esq));
+    printf("%d\t", (*raiz)->info);
+    emOrdem_arvBin(&((*raiz)->dir));
+  }
+}
+
+void posOrdem_arvBin(ArvBin *raiz){
+  if(raiz==NULL){
+      return;
+  }
+  if(*raiz!=NULL){
+    posOrdem_arvBin(&((*raiz)->esq));
+    posOrdem_arvBin(&((*raiz)->dir));
+    printf("%d\t", (*raiz)->info);
+  }
+}
+
+int consulta_ArvBin(ArvBin *raiz, int valor){
+    if(raiz == NULL){
+        return 0;
+    }
+    No *atual = *raiz;
+
+    while(atual!=NULL){
+        if(valor == atual->info){
+            atual = atual->dir;
+        }else{
+            atual = atual->esq;
+        }
+    }
+    return 0;
+}
+
+int totalNos_ArvBin(ArvBin *raiz){
+    if(raiz == NULL || *raiz == NULL){
+        return 0;
+    }
+    int qtd_dir = totalNos_ArvBin(&((*raiz)->dir));
+    int qtd_esq = totalNos_ArvBin(&((*raiz)->esq));
+
+    return(qtd_dir+qtd_esq+1);
+}
+
+int altura_ArvBin(ArvBin *raiz){
+    if(raiz == NULL || *raiz == NULL){
+        return -1;
+    }
+    int alt_dir = altura_ArvBin(&((*raiz)->dir));
+    int alt_esq = altura_ArvBin(&((*raiz)->esq));
+
+    if(alt_esq > alt_dir){
+        return alt_esq+1;
+    } else{
+        return alt_dir+1;
+    }
+}
 
 int main()
 {
@@ -79,7 +140,14 @@ int main()
     for(int i=0;i<N;i++){
         inserir_ArvBin(raiz, dados[i]);
     }
+    printf("Pre-Ordem: ");
     preOrdem_ArvBin(raiz);
+    printf("\nEm Ordem: ");
+    emOrdem_arvBin(raiz);
+    printf("\nPos-Ordem: ");
+    posOrdem_arvBin(raiz);
+    printf("\n\ntotal de nos: %d", totalNos_ArvBin(raiz));
+    printf("\nAltura da arvore: %d", altura_ArvBin(raiz));
 
     return 0;
 }
